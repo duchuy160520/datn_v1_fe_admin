@@ -10,6 +10,7 @@ import WsToastType from '../../utils/constants/WsToastType'
 import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
 import ProductService from '../../service/ProductService'
+import { useNavigate } from 'react-router-dom'
 
 const CreateProductPage = () => {
 
@@ -29,6 +30,7 @@ const CreateProductPage = () => {
     const [countNumber, setCountNumber] = useState([])
     const [countNumber2, setCountNumber2] = useState([])
     const [choose, setChoose] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getSize()
@@ -103,6 +105,9 @@ const CreateProductPage = () => {
             const axiosRes = await AxiosApi.postAuth(WsUrl.ADMIN_PRODUCT_CREATE, payload)
             if (axiosRes) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE)
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000)
             }
         } catch (e) {
             ToastUtils.createToast(WsToastType.ERROR, e.response.data.message || WsMessage.INTERNAL_SERVER_ERROR)
@@ -330,12 +335,12 @@ const CreateProductPage = () => {
                                     <input className='form-control-file' type='file'  onChange={changechoose} value={choose}/>
                                 </div> */}
                                 <div className='form-group m-2'>
-                                <input
-                                    type="file"
-                                    accept=".jpg, .jpeg, .png, .xlsx"
-                                    // value={selectedFile}
-                                    onChange={(e) => handleImportExcel(e)}
-                                />
+                                    <input
+                                        type="file"
+                                        accept=".jpg, .jpeg, .png, .xlsx"
+                                        // value={selectedFile}
+                                        onChange={(e) => handleImportExcel(e)}
+                                    />
                                 </div>
                             </div>
 
