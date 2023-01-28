@@ -9,6 +9,8 @@ import WsMessage from '../../utils/constants/WsMessage'
 import WsToastType from '../../utils/constants/WsToastType'
 import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
+import { useNavigate } from 'react-router-dom'
+
 
 var payload = {
     name: null,
@@ -22,6 +24,7 @@ const CreateCategoryPage = () => {
     const [productSelected, setProductSelected] = useState([])
     const [products, setProducts] = useState([])
     const [types, setTypes] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getProductNoPage()
@@ -74,7 +77,10 @@ const CreateCategoryPage = () => {
             console.log("handleSubmitForm() resAxios: ", resAxios)
             if (resAxios) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE)
-            }
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000)
+            } 
         } catch (e) {
             console.log("handleSubmitForm() error: ", e)
             ToastUtils.createToast(WsToastType.ERROR, e.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)

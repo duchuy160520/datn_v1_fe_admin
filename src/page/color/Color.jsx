@@ -12,6 +12,7 @@ import ToastUtils from "../../utils/ToastUtils";
 import WsToastType from "../../utils/constants/WsToastType";
 import WsMessage from "../../utils/constants/WsMessage";
 import HashSpinner from "../../component/spinner/HashSpinner";
+import { useNavigate } from 'react-router-dom'
 
 
 const initReq = {
@@ -45,13 +46,14 @@ const Color = () => {
   const [id, setId] = useState("")
   format(new Date(), 'dd/mm/yyyy')
   const [Colors, setColors] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAllColors();
   }, [req])
 
 
- 
+
 
   const getAllColors = async () => {
     setLoading(true)
@@ -91,6 +93,9 @@ const Color = () => {
       const res = await AxiosApi.postAuth(WsUrl.ADMIN_COLOR_CREATE, payload)
       if (res) {
         ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE, 1000)
+        setTimeout(() => {
+          navigate("/")
+        }, 2000)
       }
     } catch (error) {
       ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)
@@ -253,8 +258,8 @@ const Color = () => {
           <div className='row d-flex align-items-center py-1'>
             <div className='col d-flex align-items-center'>
               <span className='' style={{ minWidth: '64px' }}>Bộ lọc:</span>
-              <select className='border-1 form-control col-2  mx-2'  onChange={handleChangeStatusFilter}>
-              <option value='all'>Tất cả</option>
+              <select className='border-1 form-control col-2  mx-2' onChange={handleChangeStatusFilter}>
+                <option value='all'>Tất cả</option>
                 <option value='active'>Hoạt động</option>
                 <option value='de-active'>Ngưng hoạt động</option>
               </select>
