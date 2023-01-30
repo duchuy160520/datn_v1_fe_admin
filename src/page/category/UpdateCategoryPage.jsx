@@ -150,10 +150,10 @@ const UpdateCategoryPage = () => {
                                 </>}
                         </div>
 
-                        <div className='form-group'>
+                        {/* <div className='form-group'>
                             <b><label htmlFor="" className="form-label">Danh sách sản phẩm</label></b>
                             <WSSelected options={products.map(o => ({ label: o.name, value: o.id }))} selected={productSelected} setSelected={setProductSelected} />
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>}
