@@ -78,7 +78,7 @@ const CreateCategoryPage = () => {
             if (resAxios) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE)
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/category")
                 }, 2000)
             } 
         } catch (e) {

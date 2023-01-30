@@ -96,6 +96,9 @@ const Sidebar = () => {
             <NavLink className="collapse-item" to="./blog">
               Blog
             </NavLink>
+            <NavLink className="collapse-item" to="./brand">
+              Brand
+            </NavLink>
           </div>
         </div>
       </li>
@@ -131,9 +134,9 @@ const Sidebar = () => {
             <NavLink to="./customer-revenue" className="collapse-item">
               Theo khách hàng
             </NavLink>
-            {/* <NavLink to="./discount-revenue" className="collapse-item">
+            <NavLink to="./discount-revenue" className="collapse-item">
               Theo mã khuyến mãi
-            </NavLink> */}
+            </NavLink>
           </div>
         </div>
       </li>

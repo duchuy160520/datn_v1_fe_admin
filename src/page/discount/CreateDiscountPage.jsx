@@ -14,6 +14,7 @@ import RadioGroup from '../../component/form/RadioGroup'
 import HashSpinner from '../../component/spinner/HashSpinner'
 import CodeUtils from '../../utils/common/CodeUtils'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const typeObj = {
     name: 'typeRadio',
@@ -66,6 +67,7 @@ const CreateDiscountPage = () => {
     const [loading, setLoading] = useState(false)
     const [code, setCode] = useState(null)
     const [showPrerequisite, setShowPrerequisite] = useState(true)
+    const navigate = useNavigate()
 
     const handleTypeClick = e => {
         const statusSelected = e.target.value
@@ -258,6 +260,9 @@ const CreateDiscountPage = () => {
             console.log("handleSubmitForm() call api res : ", res)
             if (res) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE, 1000)
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000)
             }
         } catch (e) {
             ToastUtils.createToast(WsToastType.ERROR, e.response.data.message || WsMessage.INTERNAL_SERVER_ERROR)
@@ -304,8 +309,8 @@ const CreateDiscountPage = () => {
                                 <b><label htmlFor="" className="form-label">Mã khuyến mãi<span className='text-danger'>*</span></label></b>
                                 <span className='btn text-primary' onClick={handleGenerateRandomCode}>Sinh mã ngẫu nhiên</span>
                             </div>
-                            <input type="input" className="form-control py-3" placeholder='Khách hàng sẽ nhập mã khuyến mãi này ở màn hình thanh toán' 
-                            {...register("code", { required: true, minLength: 6 })} id='code' defaultValue={code} onChange={handleOnChangeCode} />
+                            <input type="input" className="form-control py-3" placeholder='Khách hàng sẽ nhập mã khuyến mãi này ở màn hình thanh toán'
+                                {...register("code", { required: true, minLength: 6 })} id='code' defaultValue={code} onChange={handleOnChangeCode} />
                             {errors.code && <>
                                 {errors.code.type === 'required' && <span className='small text-danger'>Không được để trống</span>}
                                 {errors.code.type === 'minLength' && <span className='small text-danger'>Độ dài phải lớn hơn 6 ký tự</span>} </>}

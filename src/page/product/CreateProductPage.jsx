@@ -106,7 +106,7 @@ const CreateProductPage = () => {
             if (axiosRes) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE)
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/product")
                 }, 2000)
             }
         } catch (e) {

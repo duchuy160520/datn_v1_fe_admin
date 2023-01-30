@@ -9,6 +9,7 @@ import WsMessage from '../../utils/constants/WsMessage'
 import WsToastType from '../../utils/constants/WsToastType'
 import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
+import { useNavigate } from 'react-router-dom'
 
 const UpdateProductPage = () => {
     const { id } = useParams()
@@ -22,6 +23,7 @@ const UpdateProductPage = () => {
     const [options, setOptions] = useState([])
     const [product, setProduct] = useState(null)
     const [reviews, setReviews] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getSize()
@@ -121,6 +123,9 @@ const UpdateProductPage = () => {
             if (axiosRes) {
                 getProductById()
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+                setTimeout(() => {
+                    navigate("/product")
+                }, 2000)
             }
         } catch (e) {
             ToastUtils.createToast(WsToastType.ERROR, e.response.data.message || WsMessage.INTERNAL_SERVER_ERROR)

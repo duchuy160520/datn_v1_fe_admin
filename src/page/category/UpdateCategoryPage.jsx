@@ -9,6 +9,7 @@ import WsMessage from '../../utils/constants/WsMessage'
 import WsToastType from '../../utils/constants/WsToastType'
 import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
+import { useNavigate } from 'react-router-dom'
 
 const UpdateCategoryPage = () => {
     const { id } = useParams()
@@ -18,6 +19,7 @@ const UpdateCategoryPage = () => {
     const [products, setProducts] = useState([])
     const [category, setCategory] = useState(null)
     const [types, setTypes] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getCategoryDetail()
@@ -98,6 +100,9 @@ const UpdateCategoryPage = () => {
             console.log("handleSubmitForm() resAxios: ", resAxios)
             if (resAxios) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+                setTimeout(() => {
+                    navigate("/category")
+                }, 2000)
             }
         } catch (e) {
             console.log("handleSubmitForm() error: ", e)
