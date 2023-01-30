@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import ToastUtils from "../../utils/ToastUtils";
 import WsToastType from "../../utils/constants/WsToastType";
 import WsMessage from "../../utils/constants/WsMessage";
+import { useNavigate } from 'react-router-dom'
 import HashSpinner from '../../component/spinner/HashSpinner';
 
 let initPageInfo = {
@@ -34,6 +35,7 @@ const Size = () => {
   const [size, setSize] = useState()
   const [pageInfo, setPageInfo] = useState(initPageInfo)
   const [req, setReq] = useState(initReq)
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -75,6 +77,9 @@ const Size = () => {
       const res = await AxiosApi.postAuth(WsUrl.ADMIN_SIZE_CREATE, payload)
       if (res) {
         ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE, 1000)
+        setTimeout(() => {
+          navigate("/size")
+        }, 2000)
         getSizes()
       }
     } catch (error) {
@@ -145,6 +150,9 @@ const Size = () => {
       if (axiosRes) {
         getSizes()
         ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+        setTimeout(() => {
+          navigate("/size")
+        }, 2000)
       }
     } catch (error) {
       ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)

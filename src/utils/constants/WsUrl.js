@@ -98,6 +98,17 @@ export default {
     ADMIN_CHANGE_STATUS_COLOR: '/admin/color/change-status',
     ADMIN_COLOR_SEARCH: '/admin/color/search',
 
+    //brand
+    ADMIN_PRODUCT_BRAND: '/brand',
+    ADMIN_PRODUCT_BRAND_V2: '/admin/brand',
+
+    ADMIN_BRAND_DETAIL: '/admin/brand/detail',
+    ADMIN_BRAND_CREATE: '/admin/brand/create',
+    ADMIN_BRAND_UPDATE: '/admin/brand/update',
+    ADMIN_DELETE_BRAND: '/admin/brand/delete',
+    ADMIN_CHANGE_STATUS_BRAND: '/admin/brand/change-status',
+    ADMIN_BRAND_SEARCH: '/admin/brand/search',
+
     //size
     ADMIN_SIZE_DETAIL: '/admin/size/detail',
     ADMIN_SIZE_CREATE: '/admin/size/create',

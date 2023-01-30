@@ -94,7 +94,7 @@ const Color = () => {
       if (res) {
         ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE, 1000)
         setTimeout(() => {
-          navigate("/")
+          navigate("/color")
         }, 2000)
       }
     } catch (error) {
@@ -118,6 +118,9 @@ const Color = () => {
       const res = await AxiosApi.postAuth(WsUrl.ADMIN_COLOR_UPDATE, payload)
       if (res) {
         ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS, 1000)
+        setTimeout(() => {
+          navigate("/color")
+        }, 2000)
       }
     } catch (error) {
       ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)

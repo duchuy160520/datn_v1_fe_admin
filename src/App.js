@@ -34,6 +34,7 @@ import UpdateProductPage from "./page/product/UpdateProductPage";
 import CustomerRevenuePage from './page/customer_revenue/CustomerRevenuePage';
 import DiscountRevenuePage from "./page/discount_revenue/DiscountRevenuePage";
 import DiscountUpdatePage from "./page/discount/DiscountUpdatePage";
+import Brand from "./page/brand/Brand";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
             <Route path="report/revenue-detail" element={<RevenueDetailReportPage />} />
             <Route path="report/user-detail" element={<UserDetailReportPage />} />
             <Route path="size" element={<Size />} />
+            <Route path="brand" element={<Brand />} />
             <Route path="product-revenue" element={<ProductRevenuePage />} />
             <Route path="product-revenue-chart" element={<ProductRevenueChartPage />} />
             <Route path="discount-revenue" element={<DiscountRevenuePage />} />
