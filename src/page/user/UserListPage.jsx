@@ -277,7 +277,7 @@ const UserListPage = () => {
                   <option key={index} value={obj?.roleCode}>{obj?.roleName}</option>
                 ))}
               </select>
-              {showCustomerTypeFilter && <>
+              {/* {showCustomerTypeFilter && <>
                 <span className='' style={{ minWidth: '64px' }}>Loại khách hàng:</span>
                 <select className='border-1 form-control col-2 mx-2'
                   onChange={handleChangeCustomerTypeFilter}>
@@ -286,7 +286,7 @@ const UserListPage = () => {
                     <option key={index} value={obj?.id}>{obj?.name}</option>
                   ))}
                 </select>
-              </>}
+              </>} */}
             </div>
 
             <form className="d-none d-sm-inline-block form-inline navbar-search col-4"

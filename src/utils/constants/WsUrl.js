@@ -45,6 +45,7 @@ export default {
     ADMIN_DISCOUNT_CREATE: '/admin/discount/create',
     ADMIN_DISCOUNT_DELETE: '/admin/discount/delete',
     ADMIN_DISCOUNT_DETAIL: '/admin/discount/detail',
+    ADMIN_DISCOUNT_CHANGE_STATUS: '/admin/discount/change-status',
 
     CATEGORY_NO_PAGE: '/category/no-page',
 
@@ -74,6 +75,7 @@ export default {
     ADMIN_REPORT_REVENUE_BY_CUSTOMER_EXPORT: "/admin/report/revenue/customer/export",
     ADMIN_REPORT_REVENUE_BY_DISCOUNT: "/admin/report/revenue/discount",
     ADMIN_REPORT_REVENUE_BY_DISCOUNT_EXPORT: "/admin/report/revenue/discount/export",
+    ADMIN_EXPORT_TEMPLATE: "/admin/report/export/template",
 
     // product 
     ADMIN_PRODUCT_SEARCH: '/admin/product/search',

@@ -312,7 +312,7 @@ const UpdateProductPage = () => {
                                     <table className="table table-bordered" id="dataTable" width="100%" cellSpacing={0}>
                                         <thead>
                                             <tr>
-                                                <th className='text-center' style={{ maxWidth: '50px' }}>#</th>
+                                                <th className='text-center' style={{ maxWidth: '30px' }}>#</th>
                                                 <th className=''>Màu</th>
                                                 <th className=''>Size</th>
                                                 <th className=''>Đơn giá</th>
@@ -326,7 +326,7 @@ const UpdateProductPage = () => {
                                         <tbody>
                                             {options && options.map((obj, index) => (
                                                 <tr key={index} className=''>
-                                                    <td className='text-center' style={{ maxWidth: '50px' }}>{index + 1}</td>
+                                                    <td className='text-center' style={{ maxWidth: '30px' }}>{index + 1}</td>
                                                     <td className=''>
                                                         <select className='form-control'
                                                             {...register(`options.${index}.colorId`)}

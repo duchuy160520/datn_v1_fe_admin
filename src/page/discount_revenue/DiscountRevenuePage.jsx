@@ -145,6 +145,22 @@ const DiscountRevenuePage = () => {
         } finally {
             setLoading(false)
         }
+
+        const handleChangeStatus = async (id) => {
+            setLoading(true)
+            console.log(id)
+            try {
+                const res = await AxiosApi.postAuth(`${WsUrl.ADMIN_DISCOUNT_CHANGE_STATUS}?id=${id}`)
+                if (res) {
+                    ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+                }
+            } catch (error) {
+                ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)
+            } finally {
+                setLoading(false)
+                getReport();
+            }
+        }
     }
 
     return (
@@ -247,6 +263,14 @@ const DiscountRevenuePage = () => {
                                             <span className={`btn text-light badge badge-pill badge-${obj?.status.clazz}`}
                                             >{obj?.status.title}</span>
                                         </td>
+                                        {/* <td className='text-center' style={{ minWidth: '80px' }}>
+                                            <span className={`btn text-light badge badge-pill badge-success`}
+                                                data-toggle="modal"
+                                                data-target={`#changeStatusModal${obj?.id}`}>{obj?.active ? "Hoạt động" : ""}</span>
+                                            <span className={`btn text-light badge badge-pill badge-danger`}
+                                                data-toggle="modal"
+                                                data-target={`#changeStatusModal${obj?.id}`}>{obj?.active == false ? "Ngưng hoạt động" : ""}</span>
+                                        </td> */}
                                         <td>{obj?.startDateFmt} {obj.endDate && ` - ${obj?.endDateFmt}`}</td>
                                         <td>{obj?.revenueFmt}</td>
                                     </tr>

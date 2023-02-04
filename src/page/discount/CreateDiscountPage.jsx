@@ -32,12 +32,12 @@ const typeObj = {
             defaultChecked: false,
             label: 'Theo số tiền',
         },
-        {
-            id: 'shipTypeRadio',
-            value: 'ship',
-            defaultChecked: false,
-            label: 'Miễn phí vận chuyển',
-        },
+        // {
+        //     id: 'shipTypeRadio',
+        //     value: 'ship',
+        //     defaultChecked: false,
+        //     label: 'Miễn phí vận chuyển',
+        // },
     ]
 }
 
@@ -261,7 +261,7 @@ const CreateDiscountPage = () => {
             if (res) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE, 1000)
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/discount")
                 }, 2000)
             }
         } catch (e) {
@@ -391,7 +391,7 @@ const CreateDiscountPage = () => {
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="prerequisiteRadio" id="prerequisiteTotalRadio" value={'total'} onClick={handlePrerequisiteClick} {...register('prerequisiteType')} />
-                                    <label className="form-check-label" htmlFor="prerequisiteTotalRadio">Tổng giá trị đơn hàng tối thiểu</label>
+                                    <label className="form-check-label" htmlFor="prerequisiteTotalRadio">Giá trị đơn hàng tối thiểu</label>
                                     {showTotalPrerequisite &&
                                         <><input type="number" className="form-control my-2" placeholder='(VND)' {...register("totalPrerequisiteTypeValue", { required: true, min: 1 })} />
                                             {errors.totalPrerequisiteTypeValue ? <>
@@ -401,7 +401,7 @@ const CreateDiscountPage = () => {
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="prerequisiteRadio" id="prerequisiteQtyRadio" value={'qty'} onClick={handlePrerequisiteClick} {...register('prerequisiteType')} />
-                                    <label className="form-check-label" htmlFor="prerequisiteQtyRadio">Tổng số lượng sản phẩm được khuyến mãi tối thiếu</label>
+                                    <label className="form-check-label" htmlFor="prerequisiteQtyRadio">Số lượng sản phẩm tối thiểu của đơn hàng</label>
                                     {showQtyPrerequisite &&
                                         <><input type="number" className="form-control mt-2" placeholder='Số lượng...' {...register("qtyPrerequisiteTypeValue", { required: true, min: 1 })} />
                                             {errors.qtyPrerequisiteTypeValue ? <>
@@ -413,17 +413,17 @@ const CreateDiscountPage = () => {
                         </div>}
 
                         <div className='form-group p-4 border'>
-                            <b><label htmlFor="" className="form-label">Nhớm khách hàng</label></b>
+                            <b><label htmlFor="" className="form-label">Nhóm khách hàng</label></b>
                             <div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="customerRadio" id="allRadio" value={'all'} defaultChecked onClick={handleCustomerClick} {...register('customerType')} />
                                     <label className="form-check-label" htmlFor="allRadio">Tất cả</label>
                                 </div>
-                                <div className="form-check">
+                                {/* <div className="form-check">
                                     <input className="form-check-input" type="radio" name="customerRadio" id="customerTypeRadio" value={'group'} onClick={handleCustomerClick} {...register('customerType')} />
                                     <label className="form-check-label" htmlFor="customerTypeRadio">Nhóm khách hàng</label>
                                     {showCustomerTypeSelected && <WSSelected options={customerTypes.map(o => ({ label: `${o.name} (${o.customerNumber})`, value: o.id }))} selected={customerTypeSelected} setSelected={setCustomerTypeSelected} />}
-                                </div>
+                                </div> */}
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="customerRadio" id="customerRadio" value={'customer'} onClick={handleCustomerClick} {...register('customerType')} />
                                     <label className="form-check-label" htmlFor="customerRadio">Khách hàng</label>

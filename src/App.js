@@ -60,7 +60,8 @@ function App() {
             <Route path="404" element={<NotFound />} />
             <Route path="discount" element={<DiscountListPage />} />
             <Route path="discount/create" element={<CreateDiscountPage />} />
-            <Route path="discount/detail/:id" element={<DiscountUpdatePage />} />
+            <Route path="discount/update/:id" element={<DiscountUpdatePage />} />
+            <Route path="discount/detail/:id" element={<DiscountDetailPage />} />
             <Route path="blog" element={<Blog />} />
             <Route path="blog/create" element={<CreateBlog />} />
             <Route path="blog/detail/:id" element={<BlogDetails />} />

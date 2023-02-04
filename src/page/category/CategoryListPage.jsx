@@ -201,7 +201,7 @@ const CategoryListPage = () => {
             pageReq: {
                 ...req.pageReq,
                 page: 0,
-              },
+            },
             typeId: value
         })
     }

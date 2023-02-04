@@ -10,6 +10,8 @@ import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
 import DatePicker from "react-datepicker";
 import WSSelected from '../../component/selecte/WSSelected'
+import { useNavigate } from 'react-router-dom'
+
 
 const CreateUserPage = () => {
 
@@ -20,6 +22,7 @@ const CreateUserPage = () => {
     const [customerTypesSelected, setCustomerTypesSelected] = useState([])
     const [showCustomerTypeForm, setShowCustomerTypeForm] = useState(false)
     const [customerTypes, setCustomerTypes] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getRoles()
@@ -71,7 +74,7 @@ const CreateUserPage = () => {
         const payload = {
             ...values,
             dob: selectedDate,
-            customerTypeIds: customerTypesSelected && customerTypesSelected.map(obj => (obj.value)) 
+            customerTypeIds: customerTypesSelected && customerTypesSelected.map(obj => (obj.value))
         }
         console.log('handleSubmitForm() payload: ', payload);
         try {
@@ -79,6 +82,9 @@ const CreateUserPage = () => {
             console.log("handleSubmitForm() resAxios: ", resAxios)
             if (resAxios) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CREATED_DONE)
+                setTimeout(() => {
+                    navigate("/user")
+                }, 2000)
             }
         } catch (e) {
             console.log("handleSubmitForm() error: ", e)
@@ -120,10 +126,10 @@ const CreateUserPage = () => {
                                 ))}
                             </select>
                         </div>
-                        {showCustomerTypeForm && <div className='form-group'>
+                        {/* {showCustomerTypeForm && <div className='form-group'>
                             <b><label htmlFor="" className="form-label">Loại khách hàng</label></b>
                             <WSSelected options={customerTypes.map(o => ({ label: o.name, value: o.id }))} selected={customerTypesSelected} setSelected={setCustomerTypesSelected} />
-                        </div>}
+                        </div>} */}
                         <div className='form-group'>
                             <b><label htmlFor="" className="form-label">Họ<span className='text-danger'>*</span></label></b>
                             <input type="input" className="form-control py-3" {...register("firstName", { required: true, minLength: 4 })} />
