@@ -11,7 +11,9 @@ import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
 import ProductService from '../../service/ProductService'
 import { useNavigate } from 'react-router-dom'
-
+import FileService from '../../service/FileService'
+// import { saveAs } from 'file-saver';
+import ExcelJS from 'exceljs/dist/exceljs.min.js';
 const CreateProductPage = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -31,6 +33,7 @@ const CreateProductPage = () => {
     const [countNumber2, setCountNumber2] = useState([])
     const [choose, setChoose] = useState([])
     const navigate = useNavigate()
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         getSize()
@@ -238,6 +241,24 @@ const CreateProductPage = () => {
         setChoose(e.target.value)
     }
 
+    const handleExport = async () => {
+        debugger
+        console.log("handleExport() start with payload: ");
+        setLoading(true)
+        try {
+            const axiosRes = await AxiosApi.postAuthExport(WsUrl.ADMIN_EXPORT_TEMPLATE)
+
+            if (axiosRes) {
+                FileService.saveByteArray1(axiosRes, 'template_product')
+            }
+        } catch (e) {
+            console.log("handleExport() error: ", e);
+            ToastUtils.createToast(WsToastType.ERROR, WsMessage.EXPORT_FAILED, 2000)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const handleUpdate = () => {
         const optionUpdate = [...options]
         if (countNumber) {
@@ -324,18 +345,19 @@ const CreateProductPage = () => {
                                 <WSSelected options={sizes.map(o => ({ label: o.name, value: o.id }))} selected={sizeSelected} setSelected={setSizeSelected} />
                             </div>
 
-                            <div className='row m-1'>
+                            <div className='row m-1 '>
                                 <div className='form-group m-2'>
-                                    <input type="input" onChange={changeCountNumber2} value={countNumber2} placeholder='Nhập nhanh Giá tiền' />
+                                    <input className='form-control' onChange={changeCountNumber} type="input" value={countNumber} placeholder='Nhập nhanh đơn giá' />
                                 </div>
                                 <div className='form-group m-2'>
-                                    <input onChange={changeCountNumber} type="input" value={countNumber} placeholder='Nhập nhanh số lượng' />
+                                    <input className='form-control' type="input" onChange={changeCountNumber2} value={countNumber2} placeholder='Nhập nhanh số lượng' />
                                 </div>
                                 {/* <div className='form-group m-2'>
                                     <input className='form-control-file' type='file'  onChange={changechoose} value={choose}/>
                                 </div> */}
                                 <div className='form-group m-2'>
                                     <input
+                                        className='form-control'
                                         type="file"
                                         accept=".jpg, .jpeg, .png, .xlsx"
                                         // value={selectedFile}
@@ -347,6 +369,9 @@ const CreateProductPage = () => {
                             <div className='row m-2'>
                                 <button type='button' onClick={handleGenerateOptions} className='btn btn-outline-primary m-2'>Tạo dữ liệu mẫu</button>
                                 <button type='button' onClick={handleUpdate} className='btn btn-outline-primary m-2'>Cập nhật dữ liệu</button>
+                                <button type="button" className="btn btn-primary" onClick={handleExport}>
+                                    <i className="fas fa-download fa-sm text-white-50" /> Xuất File mẫu
+                                </button>
                             </div>
                             <div className='mt-2'>
                                 <b><label htmlFor="" className="form-label">Phân loại<span className='text-danger'>*</span></label></b>

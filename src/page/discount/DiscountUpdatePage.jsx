@@ -277,7 +277,7 @@ const DiscountUpdatePage = () => {
                 <div className="card-header py-3 d-flex align-items-center">
                     <Link to='/discount' className=''><i className="fa fa-arrow-left" aria-hidden="true" /></Link>
                     <span className='mx-1'></span>
-                    <h4 className="m-0 font-weight-bold text-primary">Thêm mới khuyến mãi</h4>
+                    <h4 className="m-0 font-weight-bold text-primary">Chỉnh sửa khuyến mãi</h4>
                 </div>
                 {loading === true ? <HashSpinner /> : <div className="card-body d-flex justify-content-between">
                     <div className='col-8'>

@@ -10,6 +10,7 @@ import WsUrl from '../../utils/constants/WsUrl'
 import ToastUtils from '../../utils/ToastUtils'
 import DatePicker from "react-datepicker";
 import WSSelected from '../../component/selecte/WSSelected'
+import { useNavigate } from 'react-router-dom'
 
 const UpdateUserPage = () => {
     const { id } = useParams()
@@ -21,6 +22,7 @@ const UpdateUserPage = () => {
     const [customerTypes, setCustomerTypes] = useState([])
     const [customerTypesSelected, setCustomerTypesSelected] = useState([])
     const [showCustomerTypeForm, setShowCustomerTypeForm] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getUserById()
@@ -114,6 +116,9 @@ const UpdateUserPage = () => {
             console.log("handleSubmitForm() resAxios: ", resAxios)
             if (resAxios) {
                 ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+                setTimeout(() => {
+                    navigate("/user")
+                }, 2000)
             }
         } catch (e) {
             console.log("handleSubmitForm() error: ", e)
@@ -151,10 +156,10 @@ const UpdateUserPage = () => {
                                 ))}
                             </select>
                         </div>
-                        {showCustomerTypeForm && <div className='form-group'>
+                        {/* {showCustomerTypeForm && <div className='form-group'>
                             <b><label htmlFor="" className="form-label">Loại khách hàng</label></b>
                             <WSSelected options={customerTypes.map(o => ({ label: o.name, value: o.id }))} selected={customerTypesSelected} setSelected={setCustomerTypesSelected} />
-                        </div>}
+                        </div>} */}
                         <div className='form-group'>
                             <b><label htmlFor="" className="form-label">Họ<span className='text-danger'>*</span></label></b>
                             <input type="input" className="form-control py-3" defaultValue={user?.firstName} {...register("firstName", { required: true, maxLength: 100 })} />

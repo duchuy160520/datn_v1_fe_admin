@@ -101,7 +101,21 @@ const DiscountListPage = () => {
             }
         })
     }
-
+    const handleChangeStatus = async (id) => {
+        setLoading(true)
+        console.log(id)
+        try {
+            const res = await AxiosApi.postAuth(`${WsUrl.ADMIN_DISCOUNT_CHANGE_STATUS}?id=${id}`)
+            if (res) {
+                ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+            }
+        } catch (error) {
+            ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)
+        } finally {
+            setLoading(false)
+            getDiscounts();
+        }
+    }
     const handleDelete = async (id, canEdit) => {
         console.log("handleDelete() start with payload: ", id);
         if (!canEdit) {
@@ -120,6 +134,7 @@ const DiscountListPage = () => {
         } finally {
             setLoading(false)
         }
+
     }
 
     return (
@@ -186,6 +201,14 @@ const DiscountListPage = () => {
                                                     <li key={index}>{item}</li>
                                                 ))}
                                             </ul></td>
+                                            {/* <td className='text-center' style={{ minWidth: '80px' }}>
+                                                <span className={`btn text-light badge badge-pill badge-success`}
+                                                    data-toggle="modal"
+                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.statusName ? "Hoạt động" : ""}</span>
+                                                <span className={`btn text-light badge badge-pill badge-danger`}
+                                                    data-toggle="modal"
+                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.statusName == false ? "Ngưng hoạt động" : ""}</span>
+                                            </td> */}
                                             <td className={obj.statusClazz}>{obj.statusName}</td>
                                             <td>{obj.usageNumber} {obj.usageLimit && `/${obj.usageLimit}`}</td>
                                             <td>{obj?.startDateFmt}</td>
@@ -198,6 +221,7 @@ const DiscountListPage = () => {
                                                     </a>
                                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         {/* <NavLink to={`detail/${obj.id}`} className="dropdown-item">Chỉnh sửa</NavLink> */}
+                                                        <NavLink to={`update/${obj.id}`} className="dropdown-item">Chỉnh sửa</NavLink>
                                                         <a className="dropdown-item" href="#" data-toggle="modal"
                                                             data-target={`#deleteDiscountModal${obj.id}`}>Xóa</a>
                                                     </div>
@@ -221,17 +245,35 @@ const DiscountListPage = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div className="modal fade" id={`changeStatusModal${obj.id}`} tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div className="modal-dialog" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">Thay đổi trạng thái</h5>
+                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                Bạn có chắc muốn thay đổi trạng thái mã khuyến mãi <b className=''>{obj.code}</b> không? <br />
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => handleChangeStatus(obj.id)}>Xác nhận</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))
                                 }
                             </tbody>
                         </table>
-                        {/* <div>
+                        <div>
                             <b className='mt-2'>Note<span className='text-danger'>*</span>: Những mã khuyễn mãi đã được sử dụng sẽ không được chỉnh sửa</b>
                         </div>
-                         */}
+
                     </div>
 
                     {pageInfo.totalElements > 0 && <div className='py-2 row align-items-center justify-content-between'>

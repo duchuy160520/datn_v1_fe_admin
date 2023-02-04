@@ -56,6 +56,9 @@ const Sidebar = () => {
             <NavLink to="discount" className="collapse-item">
               Khuyến mãi
             </NavLink>
+            <NavLink to="./product" className="collapse-item">
+              Sản phẩm
+            </NavLink>
           </div>
         </div>
       </li>
@@ -78,26 +81,23 @@ const Sidebar = () => {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
+            <NavLink to="./user" className="collapse-item">
+              Người dùng
+            </NavLink>
             <NavLink to="./category" className="collapse-item">
               Danh mục sản phẩm
             </NavLink>
-            <NavLink to="./product" className="collapse-item">
-              Sản phẩm
-            </NavLink>
             <NavLink to="./color" className="collapse-item">
               Màu sắc
-            </NavLink> 
+            </NavLink>
             <NavLink to="./size" className="collapse-item">
               Kích cỡ
-            </NavLink>
-            <NavLink to="./user" className="collapse-item">
-              Người dùng
             </NavLink>
             <NavLink className="collapse-item" to="./blog">
               Blog
             </NavLink>
             <NavLink className="collapse-item" to="./brand">
-              Brand
+              Thương hiệu
             </NavLink>
           </div>
         </div>

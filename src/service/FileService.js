@@ -20,6 +20,28 @@ const saveByteArray = (res, fileName) => {
       document.body.removeChild(link)
 }
 
+const saveByteArray1 = (res, fileName) => {
+    var blob = new Blob([res.data], {
+
+        type: res.headers["content-type"],
+
+      })
+
+      const link = document.createElement("a")
+
+      link.href = window.URL.createObjectURL(blob)
+
+      link.download = `${fileName}.xlsx`
+    // link.download = `${fileName}.csv`
+
+
+      document.body.appendChild(link)
+
+      link.click()
+
+      document.body.removeChild(link)
+}
+
 function base64ToArrayBuffer(base64) {
     var binaryString = window.atob(base64);
     var binaryLen = binaryString.length;
@@ -50,6 +72,7 @@ const saveByteArrayV3 = resultByte => {
 
 export default {
     saveByteArray,
+    saveByteArray1,
     saveByteArrayV2,
     saveByteArrayV3
 }
