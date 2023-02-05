@@ -12,8 +12,6 @@ import ToastUtils from '../../utils/ToastUtils'
 import ProductService from '../../service/ProductService'
 import { useNavigate } from 'react-router-dom'
 import FileService from '../../service/FileService'
-// import { saveAs } from 'file-saver';
-import ExcelJS from 'exceljs/dist/exceljs.min.js';
 const CreateProductPage = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -33,7 +31,6 @@ const CreateProductPage = () => {
     const [countNumber2, setCountNumber2] = useState([])
     const [choose, setChoose] = useState([])
     const navigate = useNavigate()
-    const [data, setData] = useState([]);
 
     useEffect(() => {
         getSize()
@@ -217,11 +214,6 @@ const CreateProductPage = () => {
             .then((response) => response.json())
             .then((result) => {
                 setOptions(result);
-                // setColorSelected([{
-                //     "id": "ae965d3b-b6b2-4e46-bb16-ddd798b6bbe4",
-                //     "name": "Tím"
-                // }])
-                // setSizeSelected([])
                 console.log('Success:', result);
             })
             .catch((error) => {
@@ -345,6 +337,30 @@ const CreateProductPage = () => {
                                 <WSSelected options={sizes.map(o => ({ label: o.name, value: o.id }))} selected={sizeSelected} setSelected={setSizeSelected} />
                             </div>
 
+                            <div className='row m-1'>
+                                <div className='form-group m-2'>
+                                    <button type='button' onClick={handleGenerateOptions} className='btn btn-outline-primary m-2'>Tạo dữ liệu mẫu</button>
+                                </div>
+                                <div className='form-group m-2'>
+                                    <button type="button" className="btn btn-outline-primary m-2">
+                                        {/* <i className="fas fa-download fa-sm text-white-50" /> */}
+                                        <input
+                                            // className='form-control'
+                                            type="file"
+                                            accept=".jpg, .jpeg, .png, .xlsx"
+                                            // value={selectedFile}
+                                            onChange={(e) => handleImportExcel(e)}
+                                        />
+                                    </button>
+                                </div>
+                                <div className='form-group m-2'>
+                                    <button type="button" className="btn btn-primary m-2" onClick={handleExport}>
+                                        <i className="fas fa-download fa-sm text-white-50" /> Xuất file mẫu
+                                    </button>
+                                </div>
+
+
+                            </div>
                             <div className='row m-1 '>
                                 <div className='form-group m-2'>
                                     <input className='form-control' onChange={changeCountNumber} type="input" value={countNumber} placeholder='Nhập nhanh đơn giá' />
@@ -352,26 +368,7 @@ const CreateProductPage = () => {
                                 <div className='form-group m-2'>
                                     <input className='form-control' type="input" onChange={changeCountNumber2} value={countNumber2} placeholder='Nhập nhanh số lượng' />
                                 </div>
-                                {/* <div className='form-group m-2'>
-                                    <input className='form-control-file' type='file'  onChange={changechoose} value={choose}/>
-                                </div> */}
-                                <div className='form-group m-2'>
-                                    <input
-                                        className='form-control'
-                                        type="file"
-                                        accept=".jpg, .jpeg, .png, .xlsx"
-                                        // value={selectedFile}
-                                        onChange={(e) => handleImportExcel(e)}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className='row m-2'>
-                                <button type='button' onClick={handleGenerateOptions} className='btn btn-outline-primary m-2'>Tạo dữ liệu mẫu</button>
                                 <button type='button' onClick={handleUpdate} className='btn btn-outline-primary m-2'>Cập nhật dữ liệu</button>
-                                <button type="button" className="btn btn-primary" onClick={handleExport}>
-                                    <i className="fas fa-download fa-sm text-white-50" /> Xuất File mẫu
-                                </button>
                             </div>
                             <div className='mt-2'>
                                 <b><label htmlFor="" className="form-label">Phân loại<span className='text-danger'>*</span></label></b>
