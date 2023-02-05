@@ -101,19 +101,19 @@ const DiscountListPage = () => {
             }
         })
     }
-    const handleChangeStatus = async (id) => {
-        setLoading(true)
-        console.log(id)
+    const handleChangeStatus = async (id, status) => {
         try {
-            const res = await AxiosApi.postAuth(`${WsUrl.ADMIN_DISCOUNT_CHANGE_STATUS}?id=${id}`)
-            if (res) {
-                ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.UPDATE_SUCCESS)
+            const obj = {
+                id: id,
+                status: status,
+                note: null
             }
-        } catch (error) {
-            ToastUtils.createToast(WsToastType.ERROR, error.response.data.message || WsMessage.INTERNAL_SERVER_ERROR, 2000)
-        } finally {
-            setLoading(false)
-            getDiscounts();
+            const axiosRes = await AxiosApi.postAuth(WsUrl.ADMIN_DISCOUNT_CHANGE_STATUS, obj)
+            getDiscounts()
+            console.log(axiosRes)
+            ToastUtils.createToast(WsToastType.SUCCESS, WsMessage.CHANGE_ORDER_STATUS_SUCCESS)
+        } catch (e) {
+            ToastUtils.createToast(WsToastType.ERROR, e.response.data.message)
         }
     }
     const handleDelete = async (id, canEdit) => {
@@ -176,6 +176,9 @@ const DiscountListPage = () => {
 
                     <hr className='pb-2' />
                     <h6>Tìm thấy <b>{pageInfo.totalElements}</b> dữ liệu phù hợp.</h6>
+                    <div>
+                        <b className='mt-2'>Note<span className='text-danger'>*</span>: Những mã khuyễn mãi đã được sử dụng sẽ không được chỉnh sửa</b>
+                    </div>
                     <div className='table-responsive'>
                         <table className="table table-bordered mt-4" id="dataTable" width="100%" cellSpacing={0}>
                             <thead>
@@ -201,15 +204,25 @@ const DiscountListPage = () => {
                                                     <li key={index}>{item}</li>
                                                 ))}
                                             </ul></td>
+                                            {/* <td className={obj.statusClazz}>{obj.statusName}</td> */}
                                             {/* <td className='text-center' style={{ minWidth: '80px' }}>
                                                 <span className={`btn text-light badge badge-pill badge-success`}
                                                     data-toggle="modal"
-                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.statusName ? "Hoạt động" : ""}</span>
+                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.status == true ? "Đang áp dụng" : ""}
+                                                </span>
                                                 <span className={`btn text-light badge badge-pill badge-danger`}
                                                     data-toggle="modal"
-                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.statusName == false ? "Ngưng hoạt động" : ""}</span>
+                                                    data-target={`#changeStatusModal${obj.id}`}>{obj.status == false ? "Ngưng áp dụng" : ""}
+                                                </span>
                                             </td> */}
-                                            <td className={obj.statusClazz}>{obj.statusName}</td>
+                                            <td className="text-center" >
+                                                <span
+                                                    className={`btn text-light badge badge-pill badge-success`}
+                                                    data-toggle="modal"
+                                                    data-target={`#statusModal${obj.statusClazz}`}>
+                                                    {obj.statusName}
+                                                </span>
+                                            </td>
                                             <td>{obj.usageNumber} {obj.usageLimit && `/${obj.usageLimit}`}</td>
                                             <td>{obj?.startDateFmt}</td>
                                             <td>{obj?.endDateFmt}</td>
@@ -245,7 +258,7 @@ const DiscountListPage = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="modal fade" id={`changeStatusModal${obj.id}`} tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                {/* <div className="modal fade" id={`changeStatusModal${obj.id}`} tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div className="modal-dialog" role="document">
                                                         <div className="modal-content">
                                                             <div className="modal-header">
@@ -263,16 +276,39 @@ const DiscountListPage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div> */}
+
+                                                <div className="modal fade" id={`statusModal${obj.statusClazz}`} tabIndex={-1}
+                                                    role="dialog"
+                                                    aria-labelledby="statusModalLabel" aria-hidden="true">
+                                                    <div className="modal-dialog modal-lg" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">Chỉnh sửa trạng thái</h5>
+                                                                <button type="button" className="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                Bạn có chắc muốn thay đổi trạng thái mã khuyến mãi <b className=''>{obj.code}</b> không? <br />
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                                <button type="button" className="btn btn-primary" data-dismiss="modal" 
+                                                                onClick={() => handleChangeStatus(obj.id, obj.status)}>Xác nhận</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </td>
                                         </tr>
                                     ))
                                 }
                             </tbody>
                         </table>
-                        <div>
-                            <b className='mt-2'>Note<span className='text-danger'>*</span>: Những mã khuyễn mãi đã được sử dụng sẽ không được chỉnh sửa</b>
-                        </div>
+
 
                     </div>
 
