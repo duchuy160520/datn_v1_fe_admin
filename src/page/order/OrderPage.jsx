@@ -379,9 +379,7 @@ const OrderPage = () => {
                                                     <div className="modal-dialog modal-lg" role="document">
                                                         <div className="modal-content">
                                                             <div className="modal-header">
-                                                                <h5 className="modal-title" id="exampleModalLabel">Chỉnh sửa
-                                                                    trạng
-                                                                    thái</h5>
+                                                                <h5 className="modal-title" id="exampleModalLabel">Chỉnh sửa trạng thái</h5>
                                                                 <button type="button" className="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">×</span>
@@ -390,13 +388,11 @@ const OrderPage = () => {
                                                             {order.options &&
                                                                 <div className="modal-body p-4">
                                                                     <div className="form-group mt-2">
-                                                                        <h6 className='text-dark'><b>1. Lý do chỉnh
-                                                                            sửa</b> (không bắt buộc)</h6>
+                                                                        <h6 className='text-dark'><b>1. Lý do chỉnh sửa</b> (không bắt buộc)</h6>
                                                                         <textarea id='reason' className='form-control'
                                                                             rows={4}></textarea>
                                                                     </div>
-                                                                    <h6 className='text-dark'><b>2. Chọn trạng thái mới cho đơn
-                                                                        hàng</b></h6>
+                                                                    <h6 className='text-dark'><b>2. Chọn trạng thái mới cho đơn hàng</b></h6>
                                                                     <div className='row d-flex justify-content-left p-2'>
                                                                         {order.options.map((obj, index1) => (
                                                                             <button key={index1}
