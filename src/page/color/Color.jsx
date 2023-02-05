@@ -289,7 +289,7 @@ const Color = () => {
               <thead>
                 <tr className='text-bold text-dark'>
                   <th className='text-center'>#</th>
-                  <td className='text-center'>Demo</td>
+                  <td className='text-center'>Preview</td>
                   <th className='text-center'>Mã màu</th>
                   <th className='text-center'>Tên màu</th>
                   <th className='text-center'>Ngày tạo</th>
