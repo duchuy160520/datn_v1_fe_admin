@@ -132,7 +132,7 @@ const OverviewReportPage = () => {
                         <div className='d-flex align-items-center mb-2 mr-3'>
                             {/* <label htmlFor="">Khoảng thời gian</label> */}
                             <select className='form-control' onChange={handleChangeTimeType} onClick={handleSubmit}>
-                                <option selected={selectOptionTime} value="">{timeText}</option>
+                                {/* <option selected={selectOptionTime} value="">{timeText}</option> */}
                                 {times && times.map((obj, index) => (
                                     <option key={index} value={obj.code}>{obj.value}</option>
                                 ))}

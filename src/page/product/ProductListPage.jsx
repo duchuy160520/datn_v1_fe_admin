@@ -8,6 +8,7 @@ import WsToastType from '../../utils/constants/WsToastType';
 import WsMessage from '../../utils/constants/WsMessage';
 import AxiosApi from '../../api/AxiosApi';
 import WSStar from '../../component/star/WSStar'
+import { Link } from 'react-router-dom';
 
 const initReq = {
   id: null,
@@ -337,7 +338,9 @@ const ProductListPage = () => {
                   loading ? <HashSpinner /> : products && products.map((obj, index) => (
                     <tr key={obj.id}>
                       <td className='text-center' style={{ maxWidth: '40px' }}>{index + 1}</td>
-                      <td title={obj?.des}>{obj?.name}</td>
+                      {/* <td title={obj?.des}>{obj?.name}</td> */}
+                      <td title={obj?.des}><Link to={`/product/detail/${obj?.id}`}>{obj?.name}</Link></td>
+
                       {/* <td>{obj.typeName}</td> */}
                       <td>{obj.categoryName}</td>
                       <td>{obj.brandName}</td>

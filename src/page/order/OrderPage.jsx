@@ -340,9 +340,12 @@ const OrderPage = () => {
                                             <td>{order.payment}</td>
                                             {/* <td>{order.note}</td> */}
                                             <td className="col-2" >
-                                                <span className="btn bg-primary text-light" data-toggle="modal"
+                                                <span
+                                                    className="btn text-light badge badge-pill badge-success"
+                                                    data-toggle="modal"
                                                     data-target={`#statusModal${order.id}`}>
-                                                    {order.statusCombination}
+                                                    {/* {order.statusCombination} */}
+                                                    {order.statusName}
                                                 </span>
                                             </td>
                                             <td>
